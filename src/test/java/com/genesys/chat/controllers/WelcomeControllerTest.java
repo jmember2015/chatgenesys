@@ -1,6 +1,6 @@
-import com.genesys.chat.conf.WSConfig;
+package com.genesys.chat.controllers;
+
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +11,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {WSConfig.class})
+@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring-servlet.xml"})
 @WebAppConfiguration
-public class WSChatControllerTest {
+public class WelcomeControllerTest {
 
     @Autowired
     private WebApplicationContext wac;
@@ -30,30 +32,11 @@ public class WSChatControllerTest {
     }
 
     @Test
-    public void testStatusControllerChatUsers() throws Exception {
+    public void testStatusController() throws Exception {
 
-
-        mockMvc.perform(post("/ws"))
-                .andExpect(status().isOk());
-
-    }
-
-    @Ignore
-    @Test
-    public void testStatusControllerWS() throws Exception {
-
-
-        mockMvc.perform(post("/app/chat.addUser"))
-                .andExpect(status().isOk());
-
-
-    }
-
-    @Ignore
-    @Test
-    public void testStatusControllerSendMessage() throws Exception {
-
-        mockMvc.perform(post("/chat.sendMessage"))
+        mockMvc.perform(get("/"))
+                .andExpect(view().name("welcome"))
+                .andExpect(forwardedUrl("/WEB-INF/views/welcome.jsp"))
                 .andExpect(status().isOk());
 
     }

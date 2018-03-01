@@ -12,15 +12,17 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class WSChatController {
 
-    private static final Logger logger = LoggerFactory.getLogger(WSChatController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WSChatController.class);
 
-    @MessageMapping("/chat.sendMessage")
+    @MessageMapping("/push")
     @SendTo("/topic/public")
     public Message sendMessage(@Payload Message message) {
+
+        LOGGER.debug("Message from: " + message.getSender());
         return message;
     }
 
-    @MessageMapping("/chat.addUser")
+    @MessageMapping("/join")
     @SendTo("/topic/public")
     public Message addUser(@Payload Message message,
                            SimpMessageHeaderAccessor headerAccessor) {

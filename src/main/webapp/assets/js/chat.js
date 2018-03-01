@@ -23,7 +23,7 @@ function connect(event) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
 
-        var socket = new SockJS('/ws');
+        var socket = new SockJS('/appchat/ws');
         stompClient = Stomp.over(socket);
 
         stompClient.connect({}, onConnected, onError);
@@ -35,7 +35,7 @@ function connect(event) {
 function onConnected() {
 
     stompClient.subscribe('/topic/public', onMessageReceived);
-    stompClient.send("/app/chat.addUser",
+    stompClient.send("/appchat/join",
         {},
         JSON.stringify({sender: username, type: 'JOIN'})
     );
@@ -46,7 +46,7 @@ function onConnected() {
 
 function onError() {
 
-    connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
+    connectingElement.textContent = 'SockJS connection failed';
     connectingElement.style.color = 'red';
 
 }
@@ -62,7 +62,7 @@ function sendMessage(event) {
             type: 'CHAT'
         };
 
-        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        stompClient.send("/appchat/push", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
     event.preventDefault();
@@ -83,7 +83,6 @@ function onMessageReceived(payload) {
     } else {
 
         messageElement.classList.add('chat-message');
-        //var avatarText = document.createTextNode(message.sender[0]);
         var usernameElement = document.createElement('span');
         var usernameText = document.createTextNode(message.sender);
         usernameElement.appendChild(usernameText);

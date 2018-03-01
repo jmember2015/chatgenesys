@@ -11,11 +11,11 @@ public class WelcomeController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WelcomeController.class);
 
-    @RequestMapping(value ="/welcome", method = RequestMethod.GET)
-    public String printHello() {
+    @RequestMapping(value ="/", method = RequestMethod.GET)
+    public String getWelcome() {
 
         LOGGER.debug("Rendering welcome page");
-        return "index2";
+        return "welcome";
 
     }
 

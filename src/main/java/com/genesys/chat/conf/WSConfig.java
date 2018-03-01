@@ -20,7 +20,8 @@ public class WSConfig implements WebSocketMessageBrokerConfigurer {
 
     public void registerStompEndpoints(StompEndpointRegistry registry) {
 
-        registry.addEndpoint("/ws" ).withSockJS();
+        registry.addEndpoint("/ws")
+                .withSockJS();
 
     }
 
@@ -48,10 +49,10 @@ public class WSConfig implements WebSocketMessageBrokerConfigurer {
         return true;
     }
 
-    public void configureMessageBroker(MessageBrokerRegistry registry) {
+    public void configureMessageBroker(MessageBrokerRegistry config) {
 
-        registry.enableSimpleBroker("/topic");
-        registry.setApplicationDestinationPrefixes("/app");
+        config.enableSimpleBroker("/topic");
+        config.setApplicationDestinationPrefixes("/appchat");
 
     }
 }

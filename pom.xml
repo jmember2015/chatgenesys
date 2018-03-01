@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.genesys.chat</groupId>
-    <artifactId>chat-genesys</artifactId>
+    <artifactId>appchat</artifactId>
     <packaging>war</packaging>
     <version>0.01b</version>
     <name>chat-genesys Maven Webapp</name>
@@ -13,6 +13,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.6</java.version>
         <spring.version>5.0.4.RELEASE</spring.version>
+        <jetty.abspath>/usr/local/Cellar/jetty/9.4.8.v20171121/libexec</jetty.abspath>
     </properties>
 
     <dependencies>
@@ -30,11 +31,11 @@
             <version>4.0.0</version>
             <scope>provided</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.cometd.java/cometd-java-server -->
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
-            <groupId>org.cometd.java</groupId>
-            <artifactId>cometd-java-server</artifactId>
-            <version>3.1.3</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
         <dependency>
@@ -79,8 +80,50 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.9.4</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.codehaus.cargo/cargo-maven2-plugin -->
+        <dependency>
+            <groupId>org.codehaus.cargo</groupId>
+            <artifactId>cargo-maven2-plugin</artifactId>
+            <version>1.6.6</version>
+        </dependency>
     </dependencies>
     <build>
+        <finalName>appchat</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>1.6.6</version>
+                <configuration>
+                    <container>
+                        <containerId>jetty9x</containerId>
+                        <type>installed</type>
+                        <home>${jetty.abspath}</home>
+                    </container>
+                    <configuration>
+                        <type>existing</type>
+                        <home>${jetty.abspath}</home>
+                    </configuration>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <!--<build>
         <finalName>chat-genesys</finalName>
         <plugins>
             <plugin>
@@ -93,5 +136,5 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 </project>
