@@ -19,7 +19,7 @@ git clone https://github.com/jmember2015/chatgenesys.git
 Build the app using maven
 
 ```bash
-cd chat-genesys
+cd chatgenesys
 mvn package
 ```
 
