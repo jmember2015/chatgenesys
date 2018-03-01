@@ -1,6 +1,6 @@
 ## Simple web chat on SockJS
 
-
+This is s simple web chat client on SockJS and Java Spring messaging
 
 ## Requirements
 
@@ -8,22 +8,23 @@
 
 2. Maven - 3.x.x
 
-## How to Setup application
+## How to setup web chat application
 
 1. Clone the application
 
 ```bash
-git clone https://github.com/callicoder/spring-boot-websocket-chat-demo.git
+git clone https://github.com/jmember2015/chatgenesys.git
 ```
 
-2. Build and run the app using maven
+2. Build the app using maven
 
 ```bash
-cd spring-boot-websocket-chat-demo
+cd chat-genesys
 mvn package
-java -jar target/websocket-demo-0.0.1-SNAPSHOT.jar
 ```
 
-## Read
+## Tech stack
+
+1. Spring MVC, Spring IoC, 
 
 
